@@ -1,22 +1,24 @@
 import React from 'react';
-import { View, SafeAreaView, StyleSheet } from 'react-native';
-import ColorList from './components/ColorList';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+import Home from './screens/Home';
+import ColorPalette from './screens/ColorPalette';
+
+const Stack = createStackNavigator();
 
 const App = () => {
   return (
-    <SafeAreaView>
-      <View style={styles.container}>
-        <ColorList />
-      </View>
-    </SafeAreaView>
+    <NavigationContainer>
+      <Stack.Navigator>
+        <Stack.Screen name="Home" component={Home} />
+        <Stack.Screen
+          name="ColorPalette"
+          component={ColorPalette}
+          options={({ route }) => ({ title: route.params.paleteName })}
+        />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    paddingTop: 40,
-    padding: 10,
-  },
-});
 
 export default App;
