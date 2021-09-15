@@ -1,13 +1,18 @@
 import React from 'react';
-import { View, FlatList } from 'react-native';
+import { View, FlatList, Text } from 'react-native';
 import PalettePreview from '../components/PalettePreview';
-import * as PALETTES from '../constants';
+import useFetch from '../hooks/useFetch';
 
 const Home = ({ navigation }) => {
+  const [data, status] = useFetch(
+    'https://color-palette-api.kadikraman.vercel.app/palettes',
+  );
+
   const handleOnPress = (item) => {
+    console.log('item color', item);
     navigation.navigate('ColorPalette', {
-      paleteName: item.name,
-      colors: PALETTES[item.id],
+      paleteName: item.paletteName,
+      colors: item.colors,
     });
   };
 
@@ -21,11 +26,15 @@ const Home = ({ navigation }) => {
   };
   return (
     <View>
-      <FlatList
-        keyExtractor={(item, index) => `${item.name}_${index}`}
-        data={PALETTES.COLOR_PALETTES}
-        renderItem={renderNavigationItem}
-      />
+      {status == 'fetching' ? (
+        <Text>Fetching...</Text>
+      ) : (
+        <FlatList
+          keyExtractor={(item, index) => `${item.name}_${index}`}
+          data={data}
+          renderItem={renderNavigationItem}
+        />
+      )}
     </View>
   );
 };

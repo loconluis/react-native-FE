@@ -9,11 +9,11 @@ const PalettePreview = ({ handleOnPress, palette }) => {
 
   return (
     <TouchableOpacity onPress={handleOnPress}>
-      <Text style={styles.text}>{palette.name}</Text>
+      <Text style={styles.text}>{palette.paletteName}</Text>
       <FlatList
         style={styles.list}
         keyExtractor={(_item) => _item.hexCode}
-        data={palette.top5}
+        data={palette.colors.slice(0, 5)}
         renderItem={renderBlocks}
       />
     </TouchableOpacity>
