@@ -2,7 +2,7 @@ import React from 'react';
 import { View, FlatList, StyleSheet } from 'react-native';
 import ColorBox from '../components/ColorBox';
 
-const ColorPalette = ({ route, navigation }) => {
+const ColorPalette = ({ route }) => {
   const { colors } = route.params;
 
   const renderColorBox = ({ item }) => (
